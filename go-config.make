@@ -2,17 +2,6 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-# Makefile included by all other Go makefiles.
-
-# Clear variables that must come from Makefiles,
-# not the environment.
-#LIB:=
-#TARG:=
-#GOFILES:=
-#HFILES:=
-#OFILES:=
-#YFILES:=
-
 # GOROOT must be set.
 ifeq ($(GOROOT),)
 $(error $$GOROOT is not set; use gomake or set $$GOROOT in your environment)
@@ -121,6 +110,9 @@ CGO_LDFLAGS_freebsd=-shared -lpthread -lm
 CGO_LDFLAGS_linux=-shared -lpthread -lm
 CGO_LDFLAGS_darwin=-dynamiclib -Wl,-undefined,dynamic_lookup
 CGO_LDFLAGS_windows=-shared -lm -mthreads
+
+# Default destination for packages
+PKGDIR_DEFAULT:=$(GOROOT)/pkg/$(GOOS)_$(GOARCH)
 
 # Make environment more standard.
 LANG:=
