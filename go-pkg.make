@@ -53,6 +53,7 @@ endef
 # cflags       - package local C compiler flags
 # cgo_cflags   - cgo compiler flags
 # cgo_ldflags  - cgo linker flags
+# deps         - package dependencies
 #-------
 # FILES: (all files should be relative to $(curdir))
 #-------
@@ -92,7 +93,7 @@ $(curdir)$(targ).a: $(curdir)_go_.$O $(ofiles)
 	rm -f $$@
 	gopack grc $$@ $(curdir)_go_.$O $(ofiles)
 
-$(curdir)_go_.$O: $(gofiles)
+$(curdir)_go_.$O: $(gofiles) $(deps)
 	$(GC)$(call PRESPACE,$(curdirI))$(call PRESPACE,$(gcflags)) -o $$@ $(gofiles)
 
 # should be used only when curdir != pkgdir
@@ -133,6 +134,7 @@ $(curdir)$(targ)/all $(curdir)$(targ)/clean $(curdir)$(targ)/install: installfil
 $(curdir)$(targ)/all $(curdir)$(targ)/clean $(curdir)$(targ)/install: cleanfiles   := $(cleanfiles)
 $(curdir)$(targ)/all $(curdir)$(targ)/clean $(curdir)$(targ)/install: cflags       := $(cflags)
 $(curdir)$(targ)/all $(curdir)$(targ)/clean $(curdir)$(targ)/install: hfiles       := $(hfiles)
+$(curdir)$(targ)/all $(curdir)$(targ)/clean $(curdir)$(targ)/install: deps         := $(deps)
 
 endef
 #------------------------------------------------------------------------------
@@ -157,6 +159,7 @@ cgofiles     :=
 cgo_ofiles   :=
 cgo_cflags   :=
 cgo_ldflags  :=
+deps         :=
 
 endef
 

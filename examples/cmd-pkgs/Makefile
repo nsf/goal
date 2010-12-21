@@ -1,7 +1,7 @@
 TEMPLATES_DIR=../..
 include $(TEMPLATES_DIR)/go.make
 
-all: $(addsuffix /install,a/a b/b c/c) app/all
+all: app/all
 clean: $(addsuffix /clean,a/a b/b c/c) app/clean
 
 PKGS=a b c
@@ -13,5 +13,6 @@ $(eval $(call TEMPLATE_GO_COMMAND_CLEAN_VARS))
 
 targ    := app
 gofiles := main.go
+deps    := $(addsuffix /install,a/a b/b c/c)
 
 $(eval $(call TEMPLATE_GO_COMMAND))

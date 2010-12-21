@@ -6,6 +6,7 @@
 # gcflags    - package local GC compiler flags
 # glflags    - package local GC linker flags
 # cmddir     - installation destination in a form of a prefix (defaults to $(GOBIN))
+# deps       - command dependencies
 #-------
 # FILES: (all files should be relative to $(curdir))
 #-------
@@ -30,7 +31,7 @@ $(curdir)$(targ)/all: $(curdir)$(targ)
 $(curdir)$(targ): $(curdir)_go_.$O
 	$(LD)$(call PRESPACE,$(curdirL))$(call PRESPACE,$(glflags)) -o $$@ $(curdir)_go_.$O
 
-$(curdir)_go_.$O: $(gofiles)
+$(curdir)_go_.$O: $(gofiles) $(deps)
 	$(GC)$(call PRESPACE,$(curdirI))$(call PRESPACE,$(gcflags)) -o $$@ $(gofiles)
 
 $(cmddir)$(targ): $(curdir)$(targ)
@@ -54,6 +55,7 @@ $(curdir)$(targ)/all $(curdir)$(targ)/clean $(curdir)$(targ)/install: gcflags   
 $(curdir)$(targ)/all $(curdir)$(targ)/clean $(curdir)$(targ)/install: glflags      := $(glflags)
 $(curdir)$(targ)/all $(curdir)$(targ)/clean $(curdir)$(targ)/install: cmddir       := $(pkgdir)
 $(curdir)$(targ)/all $(curdir)$(targ)/clean $(curdir)$(targ)/install: cleanfiles   := $(cleanfiles)
+$(curdir)$(targ)/all $(curdir)$(targ)/clean $(curdir)$(targ)/install: deps         := $(deps)
 
 endef
 #------------------------------------------------------------------------------
@@ -70,6 +72,7 @@ gcflags      :=
 glflags      :=
 cmddir       := 
 cleanfiles   := 
+deps         :=
 
 endef
 
