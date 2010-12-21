@@ -3,7 +3,7 @@
 #------------------------------------------------------------------------------
 define TEMPLATE_CGO_PACKAGE
 
-$(eval gofiles+=$(patsubst %.go,%.cgo1.go,$(gofiles)) $(curdir)_cgo_gotypes.go)
+$(eval gofiles+=$(patsubst %.go,%.cgo1.go,$(cgofiles)) $(curdir)_cgo_gotypes.go)
 $(eval cgo_ofiles+=$(patsubst %.go,%.cgo2.o,$(cgofiles)) $(curdir)_cgo_export.o)
 $(eval ofiles+=$(curdir)_cgo_defun.$O $(curdir)_cgo_import.$O $(cgo_ofiles))
 

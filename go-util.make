@@ -21,7 +21,7 @@ DIR_AS_L_FLAG=$(if $1,-L$(patsubst %/,%,$1),)
 PRESPACE=$(if $1,$(space)$1,)
 
 # if not empty prepends "cd $1 &&"
-CDPREFIX=$(if $1,cd $1 && ,)
+CDPREFIX=$(if $1,cd $1 &&,)
 
 # if not empty makes it: "mkdir -p $1"
 MKDIRP=$(if $1,mkdir -p $1,)
