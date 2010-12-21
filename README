@@ -1,0 +1,3 @@
+Experimental Go makefile templates system.
+
+Most likely requires the latest gnu make version (3.81 or 3.82).
