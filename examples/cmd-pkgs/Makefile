@@ -1,10 +1,11 @@
 TEMPLATES_DIR=../..
 include $(TEMPLATES_DIR)/go.make
 
-all: $(addsuffix /install,a/a b/b) app/all
-clean: $(addsuffix /clean,a/a b/b app)
+all: $(addsuffix /install,a/a b/b c/c) app/all
+clean: $(addsuffix /clean,a/a b/b c/c) app/clean
 
-PKGS=a b
+PKGS=a b c
+
 $(foreach p,$(PKGS),$(eval $(call TEMPLATE_GO_PACKAGE_IN_DIR,$(p),)))
 
 # main app
