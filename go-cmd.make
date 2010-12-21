@@ -1,14 +1,22 @@
 #------------------------------------------------------------------------------
 # TEMPLATE_GO_COMMAND
-#------------------------------------------------------------------------------
-# curdir - current directory in a form of a prefix (can be empty)
-# targ - target name
-# gcflags - package local GC compiler flags
-# glflags - package local GC linker flags
-# cmddir - installation destination in a form of a prefix (can be empty)
+#-IN---------------------------------------------------------------------------
+# curdir     - current directory in a form of a prefix (can be empty)
+# targ       - target name
+# gcflags    - package local GC compiler flags
+# glflags    - package local GC linker flags
+# cmddir     - installation destination in a form of a prefix (defaults to $(GOBIN))
+#-------
 # FILES: (all files should be relative to $(curdir))
-#   cleanfiles - additional list of files for removing during clean
-#   gofiles - list of the go source files (prefixed with $(curdir))
+#-------
+# cleanfiles - additional list of files for removing during clean
+# gofiles    - list of the go source files (prefixed with $(curdir))
+#-OUT--------------------------------------------------------------------------
+# creates a bunch of targets:
+#   $(curdir)$(targ)
+#   $(curdir)$(targ)/all
+#   $(curdir)$(targ)/install
+#   $(curdir)$(targ)/clean
 #------------------------------------------------------------------------------
 define TEMPLATE_GO_COMMAND
 $(eval gofiles    := $(addprefix $(curdir),$(gofiles)))
@@ -67,12 +75,16 @@ endef
 
 #------------------------------------------------------------------------------
 # TEMPLATE_GO_COMMAND_IN_DIR
+#-ARGS-------------------------------------------------------------------------
+# $1 - directory of a command
 #------------------------------------------------------------------------------
 define TEMPLATE_GO_COMMAND_IN_DIR
+
 $(eval $(TEMPLATE_GO_COMMAND_CLEAN_VARS))
 $(eval curdir := $(call DIR_AS_PREFIX,$1))
 $(eval include $(curdir)Make.def)
 $(eval $(TEMPLATE_GO_COMMAND))
+
 endef
 
 # vim: ft=make

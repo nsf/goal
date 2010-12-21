@@ -45,23 +45,30 @@ endef
 
 #------------------------------------------------------------------------------
 # TEMPLATE_GO_PACKAGE
-#------------------------------------------------------------------------------
-# curdir - current directory in a form of a prefix (can be empty)
-# pkgdir - installation destination in a form of a prefix (can be empty)
-# targ - target name
-# targdir - directory for target
-# gcflags - package local GC compiler flags
-# cflags - package local C compiler flags
-# cgo_cflags - cgo compiler flags
-# cgo_ldflags - cgo linker flags
+#-IN---------------------------------------------------------------------------
+# curdir       - current directory in a form of a prefix (can be empty)
+# pkgdir       - installation destination in a form of a prefix (can be empty)
+# targ         - target name
+# gcflags      - package local GC compiler flags
+# cflags       - package local C compiler flags
+# cgo_cflags   - cgo compiler flags
+# cgo_ldflags  - cgo linker flags
+#-------
 # FILES: (all files should be relative to $(curdir))
-#   installfiles - additional list of installation files
-#   cleanfiles - additional list of files for removing during clean
-#   gofiles - list of the go source files (prefixed with $(curdir))
-#   ofiles - additional object files (prefixed with $(curdir))
-#   hfiles - list of header files (adding them to %.$O as dependencies)
-#   cgofiles - list of cgo files (prefixed with $(curdir))
-#   cgo_ofiles - list of additional cgo object files (prefixed with $(curdir))
+#-------
+# installfiles - additional list of installation files
+# cleanfiles   - additional list of files for removing during clean
+# gofiles      - list of the go source files
+# ofiles       - additional object files
+# hfiles       - list of header files (adding them to %.$O as dependencies)
+# cgofiles     - list of cgo files
+# cgo_ofiles   - list of additional cgo object files
+#-OUT--------------------------------------------------------------------------
+# creates a bunch of targets:
+#   $(curdir)$(targ).a
+#   $(curdir)$(targ)/all
+#   $(curdir)$(targ)/install
+#   $(curdir)$(targ)/clean
 #------------------------------------------------------------------------------
 define TEMPLATE_GO_PACKAGE
 
@@ -155,6 +162,9 @@ endef
 
 #------------------------------------------------------------------------------
 # TEMPLATE_GO_PACKAGE_IN_DIR
+#-ARGS-------------------------------------------------------------------------
+# $1 - directory of a package
+# $2 - installation destination of a package
 #------------------------------------------------------------------------------
 define TEMPLATE_GO_PACKAGE_IN_DIR
 
