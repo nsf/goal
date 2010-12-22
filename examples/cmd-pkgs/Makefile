@@ -13,6 +13,6 @@ $(eval $(call TEMPLATE_GO_COMMAND_CLEAN_VARS))
 
 targ    := app
 gofiles := main.go
-deps    := $(addsuffix /install,a/a b/b c/c)
+deps    := a.a b.a c.a
 
 $(eval $(call TEMPLATE_GO_COMMAND))
