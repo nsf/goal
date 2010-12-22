@@ -1,3 +1,21 @@
 Experimental Go makefile templates system.
 
 Most likely requires the latest gnu make version (3.81 or 3.82).
+
+--== Development and contribution ==--
+
+This is a personal project for my own needs. Mostly it means that I make no
+promises regarding bug fixes. If you use this project too and want to fix a
+bug, send me a patch. Good patches will be applied to the main repository
+almost certainly.
+
+Other notes:
+ - I won't accept compatibility patches and workarounds for older versions of
+   make and other software. Please, use recent versions of all the tools.
+ - Linux support is a priority. MacOSX is fine usually, but I don't have it and
+   can't test MacOSX patches. I will accept them only if they don't break linux
+   stuff. Windows portability patches may or may not be accepted.
+ - For quicker response find me on irc: #go-nuts @ freenode (nickname: nsf).
+ - Usability suggestions and documentation improvements are welcome.
+ - If you're using this makefile system for your project, let me know, it's
+   good to have more test cases.
