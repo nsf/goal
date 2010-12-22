@@ -66,6 +66,7 @@ endef
 # cgo_ofiles   - list of additional cgo object files
 #-OUT--------------------------------------------------------------------------
 # creates a bunch of targets:
+#   $(pkgdir)$(targ).a
 #   $(curdir)$(targ).a
 #   $(curdir)$(targ)/all
 #   $(curdir)$(targ)/install

@@ -14,6 +14,7 @@
 # gofiles    - list of the go source files (prefixed with $(curdir))
 #-OUT--------------------------------------------------------------------------
 # creates a bunch of targets:
+#   $(cmddir)$(targ)
 #   $(curdir)$(targ)
 #   $(curdir)$(targ)/all
 #   $(curdir)$(targ)/install
