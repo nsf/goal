@@ -1,0 +1,116 @@
+From c795d2e1c2cb3213954d6eabe10a276e5f448cba Mon Sep 17 00:00:00 2001
+From: nsf <no.smile.face@gmail.com>
+Date: Wed, 22 Dec 2010 05:27:08 +0500
+Subject: [PATCH] Use makefile templates.
+
+---
+ Makefile          |   35 ++++++++++++++++-------------------
+ goconfig/Make.def |    2 ++
+ goconfig/Makefile |    7 -------
+ goremote/Make.def |    2 ++
+ goremote/Makefile |    6 ------
+ 5 files changed, 20 insertions(+), 32 deletions(-)
+ create mode 100644 goconfig/Make.def
+ delete mode 100644 goconfig/Makefile
+ create mode 100644 goremote/Make.def
+ delete mode 100644 goremote/Makefile
+
+diff --git a/Makefile b/Makefile
+index 8541634..775565e 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,8 +1,15 @@
+-include $(GOROOT)/src/Make.inc
++TEMPLATES_DIR=../../..
++include $(TEMPLATES_DIR)/go.make
+ 
+-PREREQ+=configfile.a
+-TARG=gocode
+-GOFILES=gocode.go\
++all: gocode/all
++install: gocode/install
++clean: $(addsuffix /clean,goconfig/configfile goremote/goremote gocode)
++
++$(eval $(call TEMPLATE_GO_COMMAND_CLEAN_VARS))
++
++targ=gocode
++deps=configfile.a
++gofiles=gocode.go\
+ 	autocompletefile.go\
+ 	package.go\
+ 	autocompletecontext.go\
+@@ -16,25 +23,15 @@ GOFILES=gocode.go\
+ 	declcache.go
+ 
+ ifeq ($(GOOS),windows)
+-GOFILES+=os_win32.go
++gofiles+=os_win32.go
+ else
+-GOFILES+=os_posix.go
++gofiles+=os_posix.go
+ endif
+ 
+-include $(GOROOT)/src/Make.cmd
++$(eval $(call TEMPLATE_GO_COMMAND))
+ 
+ rpc.go: server.go goremote/goremote
+ 	./goremote/goremote server.go | gofmt > rpc.go
+ 
+-goremote/goremote: goremote/goremote.go
+-	gomake -C goremote
+-
+-configfile.a: goconfig/configfile.go
+-	gomake -C goconfig
+-	cp goconfig/_obj/configfile.a .
+-
+-clean: cleandeps
+-
+-cleandeps:
+-	gomake -C goremote clean
+-	gomake -C goconfig clean
++$(eval $(call TEMPLATE_GO_PACKAGE_IN_DIR,goconfig,))
++$(eval $(call TEMPLATE_GO_COMMAND_IN_DIR,goremote))
+diff --git a/goconfig/Make.def b/goconfig/Make.def
+new file mode 100644
+index 0000000..144c0c0
+--- /dev/null
++++ b/goconfig/Make.def
+@@ -0,0 +1,2 @@
++targ=configfile
++gofiles=configfile.go
+diff --git a/goconfig/Makefile b/goconfig/Makefile
+deleted file mode 100644
+index 868503c..0000000
+--- a/goconfig/Makefile
++++ /dev/null
+@@ -1,7 +0,0 @@
+-include $(GOROOT)/src/Make.inc
+-
+-TARG=configfile
+-GOFILES=\
+-	configfile.go\
+-
+-include $(GOROOT)/src/Make.pkg
+diff --git a/goremote/Make.def b/goremote/Make.def
+new file mode 100644
+index 0000000..51fbc1c
+--- /dev/null
++++ b/goremote/Make.def
+@@ -0,0 +1,2 @@
++targ=goremote
++gofiles=goremote.go
+diff --git a/goremote/Makefile b/goremote/Makefile
+deleted file mode 100644
+index 825bd3e..0000000
+--- a/goremote/Makefile
++++ /dev/null
+@@ -1,6 +0,0 @@
+-include $(GOROOT)/src/Make.inc
+-
+-TARG=goremote
+-GOFILES=goremote.go
+-
+-include $(GOROOT)/src/Make.cmd
+-- 
+1.7.3.3
+
